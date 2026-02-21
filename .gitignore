@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Nested / other repos (add as submodule if needed)
+cursor-analytics/
+
+# Optional: uncomment if you want to ignore local data
+# local data /

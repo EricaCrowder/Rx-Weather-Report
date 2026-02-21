@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q1'26 Rx Marketplace Integrations — Bi-Weekly OKR Report</title>
+  <!-- To use Proxima Nova, add your Adobe Fonts kit: <link rel="stylesheet" href="https://use.typekit.net/YOUR_KIT_ID.css"> -->
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.35;
+      color: #333;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 16px 20px; }
+
+    /* Dark header */
+    .header-dark {
+      background: #1e3a5f;
+      color: #fff;
+      padding: 14px 20px 16px;
+      margin-bottom: 12px;
+    }
+    .header-dark .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .header-dark .title-block { flex: 1; min-width: 0; }
+    .header-dark h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 2px 0;
+      color: #fff;
+    }
+    .header-dark .subtitle {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .header-dark .meta-right {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.9);
+      text-align: right;
+    }
+    .header-dark .meta-right strong { display: block; margin-bottom: 2px; }
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .kpi-row .card {
+      background: rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+    .kpi-row .card .label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 4px;
+    }
+    .kpi-row .card .value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .kpi-row .card .value.on-goal { color: #7bc67e; }
+    .kpi-row .card .goal { font-size: 0.65rem; color: rgba(255,255,255,0.75); margin-top: 2px; }
+    .kpi-row-2-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.75);
+      margin-top: 12px;
+      margin-bottom: 8px;
+    }
+    .kpi-row-2-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0;
+    }
+    .kpi-row-2-wrap .team-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .kpi-row-2-wrap .team-card .team-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .kpi-row-2-wrap .team-card .team-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+    .kpi-row-2-wrap .team-card .tw-actual {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .kpi-row-2-wrap .team-card.off .tw-actual { color: #ffab91; }
+    .kpi-row-2-wrap .team-card.on .tw-actual { color: #7bc67e; }
+    .kpi-row-2-wrap .team-card .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.8rem;
+    }
+    .kpi-row-2-wrap .team-card .row-label { color: rgba(255,255,255,0.8); }
+    .kpi-row-2-wrap .team-card .row-value { font-weight: 600; color: #fff; }
+
+    /* Key Takeaways */
+    .section-head {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #333;
+      margin: 14px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-head .icon { font-size: 1rem; }
+    .takeaway-subhead {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2e7d32;
+      margin: 0 0 4px 0;
+    }
+    .takeaway-subhead.inflight { color: #f57f17; margin-top: 8px; }
+    .takeaway-lines { margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .takeaway-line {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      line-height: 1.35;
+      border-radius: 6px;
+      border-left: 3px solid transparent;
+    }
+    .takeaway-line .icon { flex-shrink: 0; font-size: 0.85rem; }
+    .takeaway-line.pos { background: #e8f5e9; border-left-color: #2e7d32; }
+    .takeaway-line.watch { background: #fffde7; border-left-color: #f9a825; }
+    .takeaway-line.crit { background: #ffebee; border-left-color: #c62828; }
+    .takeaway-line strong { margin-right: 4px; }
+    .takeaway-line .text { color: #444; }
+    .win-block .win-content { min-width: 0; flex: 1; display: flex; align-items: center; gap: 10px; }
+    .win-block .win-text { font-size: 0.8rem; color: #444; line-height: 1.4; flex: 1; min-width: 0; }
+    .win-block .win-text strong { color: #1b5e20; }
+    .takeaway-line .win-text { font-size: 0.8rem; color: #444; line-height: 1.4; }
+    .win-cat {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #2e7d32;
+      background: rgba(46, 125, 50, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+    .win-cat .cat-emoji { font-size: 0.75rem; }
+    .win-attribution {
+      font-size: 0.7rem;
+      color: #2e7d32;
+      font-weight: 500;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .takeaway-line .mention {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 600;
+      color: #fff;
+      background: #2e7d32;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+    }
+    .takeaway-line .emoji { font-style: normal; }
+
+    /* Cards */
+    .card-wrap {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .card-wrap.card-pos .card-title { background: #008b8b; color: #fff; border-bottom-color: rgba(255,255,255,0.2); }
+    .card-wrap.card-hqi .card-title { background: #008b8b; color: #fff; border-bottom-color: rgba(255,255,255,0.2); }
+    .card-wrap.card-teal .card-title { background: #008b8b; color: #fff; border-bottom-color: rgba(255,255,255,0.2); }
+    .card-wrap.risks-wrap .card-title { background: #008b8b; color: #fff; border-bottom-color: rgba(255,255,255,0.2); }
+    .card-subsection { padding: 0 12px 12px; }
+    .card-subsection:first-of-type { padding-top: 12px; }
+    .card-subhead { font-size: 0.85rem; font-weight: 700; color: #333; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #333;
+      padding: 10px 12px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title .icon { font-size: 1rem; opacity: 0.9; }
+    .card-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .card-table th {
+      text-align: left;
+      padding: 6px 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #666;
+      background: #f5f5f5;
+      border-bottom: 1px solid #eee;
+    }
+    .card-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: top;
+    }
+    .card-table tr:last-child td { border-bottom: none; }
+    .card-table tr.row-muted td { background: #f8f8f8; color: #777; }
+    .card-table tr.row-muted .name { color: #666; }
+    .card-table .name { font-weight: 700; color: #333; }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .tag-ok { background: #e6f4e6; color: #1a7a1a; }
+    .tag-warn { background: #fff4e0; color: #b45309; }
+    .tag-bad { background: #ffebee; color: #c62828; }
+    .tag-info { background: #e0f2fe; color: #0b7ac3; }
+    .card-table .partner-cell .sub { font-size: 0.7rem; font-weight: 400; color: #666; display: block; margin-top: 1px; }
+    .tag-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #e6f4e6;
+      color: #1a7a1a;
+    }
+    .tag-trend-bad {
+      background: #ffebee;
+      color: #c62828;
+    }
+    .tag-progress {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #e6f4e6;
+      color: #1a7a1a;
+    }
+    .tag-progress-bad { background: #ffebee; color: #c62828; }
+    .tag-progress-warn { background: #fff4e0; color: #b45309; }
+    .tag-progress-info { background: #e0f2fe; color: #0b7ac3; }
+
+    /* Integration Roadmap / Pipeline */
+    .roadmap-wrap {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .roadmap-header {
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .roadmap-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .roadmap-title .icon { font-size: 1rem; opacity: 0.8; }
+    .roadmap-legend {
+      font-size: 0.65rem;
+      color: #666;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .roadmap-legend span { display: inline-flex; align-items: center; gap: 4px; }
+    .roadmap-legend .swatch { width: 8px; height: 8px; border-radius: 2px; }
+    .roadmap-legend .swatch-flight { background: #1a7a1a; }
+    .roadmap-legend .swatch-scoping { background: #0b7ac3; }
+    .roadmap-legend .swatch-paused { background: #e65100; }
+    .roadmap-legend .swatch-backlog { background: #999; }
+    .roadmap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .roadmap-table th {
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #666;
+      background: #f5f5f5;
+      border-bottom: 1px solid #eee;
+    }
+    .roadmap-table th.th-p { text-align: right; }
+    .roadmap-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+    .roadmap-table td.td-p { text-align: right; }
+    .roadmap-table tr:last-child td { border-bottom: none; }
+    .roadmap-table .team { font-weight: 700; color: #333; }
+    .roadmap-table .request-tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+    .roadmap-table .request-tag.pos { background: #e3f2fd; color: #1565c0; }
+    .roadmap-table .status-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .roadmap-table .status-flight { background: #e6f4e6; color: #1a7a1a; }
+    .roadmap-table .status-scoping { background: #e0f2fe; color: #0b7ac3; }
+    .roadmap-table .status-paused { background: #ffecb3; color: #e65100; }
+    .roadmap-table .status-backlog { background: #eeeeee; color: #666; }
+    .roadmap-table .p-cell {
+      display: inline-block;
+      min-width: 18px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-align: center;
+      background: #ffebee;
+      color: #c62828;
+    }
+    .roadmap-table .p-cell.low { background: #f5f5f5; color: #999; }
+
+    /* Risks */
+    .risks-wrap { margin-bottom: 12px; }
+    .risks-list { list-style: none; margin: 0; padding: 0; }
+    .risks-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .risks-list li:last-child { border-bottom: none; }
+    .risks-list .bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c62828;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .risks-list .risk-content { flex: 1; min-width: 0; }
+    .risks-list .risk-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .risks-list .risk-title .risk-cat {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .risks-list .risk-cat.pos { background: #e3f2fd; color: #1565c0; }
+    .risks-list .risk-cat.hqi { background: #fff3e0; color: #e65100; }
+    .risks-list .risk-detail {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.45;
+      padding-left: 0;
+    }
+
+    /* Highlights / lists */
+    .highlights-list { list-style: none; margin: 0; padding: 0; }
+    .highlights-list li {
+      display: flex;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 0.8rem;
+    }
+    .highlights-list .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2e7d32;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .highlights-list strong { margin-right: 4px; }
+
+    /* Pipeline / Asks */
+    .legend {
+      font-size: 0.65rem;
+      color: #666;
+      margin-bottom: 6px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 4px; }
+    .legend .swatch { width: 8px; height: 8px; border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+  <header class="header-dark">
+    <div class="container" style="padding:0 16px 0;">
+      <div class="top">
+        <div class="title-block">
+          <h1>Rx Marketplace Integrations — Bi-Weekly OKR Report</h1>
+          <p class="subtitle">Q1 2026 • Week 5 & 6 • Data through Feb 15</p>
+        </div>
+        <div class="meta-right">
+          <strong>18 Feb 2026</strong>
+          Erica Crowder
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="card">
+          <div class="label">Order Error Rate</div>
+          <div class="value">0.28%</div>
+          <div class="goal">Goal 0.26%</div>
+        </div>
+        <div class="card">
+          <div class="label">HQI Adoption</div>
+          <div class="value">71.72%</div>
+          <div class="goal">Goal 77.47%</div>
+        </div>
+        <div class="card">
+          <div class="label">Supporting KRs On Track</div>
+          <div class="value">1</div>
+          <div class="goal">Detailed Error Spec at goal</div>
+        </div>
+        <div class="card">
+          <div class="label">At Risk</div>
+          <div class="value">2</div>
+          <div class="goal">Integrated Promos, Item Polling</div>
+        </div>
+      </div>
+      <div class="kpi-row-2-label">POS Error Rate by Team</div>
+      <div class="kpi-row-2-wrap">
+        <div class="team-card off">
+          <div class="team-head">
+            <span class="team-name">3P</span>
+            <span class="tw-actual">0.32%</span>
+          </div>
+          <div class="row"><span class="row-label">TW Plan</span><span class="row-value">0.30%</span></div>
+          <div class="row"><span class="row-label">EOQ Goal</span><span class="row-value">0.29%</span></div>
+        </div>
+        <div class="team-card off">
+          <div class="team-head">
+            <span class="team-name">DTM</span>
+            <span class="tw-actual">0.23%</span>
+          </div>
+          <div class="row"><span class="row-label">TW Plan</span><span class="row-value">0.21%</span></div>
+          <div class="row"><span class="row-label">EOQ Goal</span><span class="row-value">0.21%</span></div>
+        </div>
+        <div class="team-card on">
+          <div class="team-head">
+            <span class="team-name">ANZ</span>
+            <span class="tw-actual">0.25%</span>
+          </div>
+          <div class="row"><span class="row-label">TW Plan</span><span class="row-value">0.27%</span></div>
+          <div class="row"><span class="row-label">EOQ Goal</span><span class="row-value">0.26%</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <h2 class="section-head"><span class="icon">🎯</span> Key Takeaways</h2>
+    <div class="takeaway-lines">
+      <h3 class="takeaway-subhead">Wins / Progress</h3>
+      <div class="takeaway-line pos win-block">
+        <span class="icon">✓</span>
+        <div class="win-content">
+          <span class="win-text"><span class="win-cat"><span class="cat-emoji">📉</span> POS</span> <strong>Blocked harmful SSME edits + POS-aware warnings</strong> → PFQ ↓27.4%, CXI ↓23.8%, ~$180K annualized GOV unlocked</span>
+          <div class="win-attribution">✨ <span class="mention">@hannah.ali</span></div>
+        </div>
+      </div>
+      <div class="takeaway-line pos win-block">
+        <span class="icon">✓</span>
+        <div class="win-content">
+          <span class="win-text"><span class="win-cat"><span class="cat-emoji">📉</span> POS</span> <strong>ANZ error rate</strong> at 0.25% vs 0.27% plan (ahead of 0.26% Q1 goal)</span>
+          <div class="win-attribution">✨ <span class="mention">@Manik</span> <span class="mention">@alvin.chung</span></div>
+        </div>
+      </div>
+      <div class="takeaway-line pos win-block">
+        <span class="icon">✓</span>
+        <div class="win-content">
+          <span class="win-text"><span class="win-cat"><span class="cat-emoji">⭐</span> HQI</span> <strong>Clover SSIO</strong> bugs resolved, pending GA date from Clover!</span>
+          <div class="win-attribution">✨ <span class="mention">Raghav</span></div>
+        </div>
+      </div>
+      <div class="takeaway-line watch win-block"><span class="icon">·</span><div class="win-content"><span class="win-text"><span class="win-cat"><span class="cat-emoji">📉</span> POS</span> <strong>OCV experiments live</strong> for Toast (2/2) and TH (2/9).</span><div class="win-attribution">✨ <span class="mention">Hannah</span> <span class="mention">Kaitlin</span></div></div></div>
+      <div class="takeaway-line watch win-block"><span class="icon">·</span><div class="win-content"><span class="win-text"><span class="win-cat"><span class="cat-emoji">📉</span> POS</span> <strong>Olo stale validations</strong> in TAM testing (wk of 2/16) → experiment to launch early next week</span><div class="win-attribution">✨ <span class="mention">Raghav</span></div></div></div>
+      <div class="takeaway-line watch win-block"><span class="icon">·</span><div class="win-content"><span class="win-text"><span class="win-cat"><span class="cat-emoji">📉</span> POS</span> <strong>OCV OpenAPI development</strong> in progress; ETA 2/27 → we found a test provider (Abacus)! 🎉</span><div class="win-attribution">✨ <span class="mention">Raghav/Olu</span></div></div></div>
+      <div class="takeaway-line crit"><span class="icon">✕</span><span class="win-text"><span class="win-cat"><span class="cat-emoji">📉</span> POS</span> <strong>3P</strong> POS error rate at 0.32% vs 0.30% plan (behind pacing to 0.29% Q1 goal)</span></div>
+      <div class="takeaway-line crit"><span class="icon">✕</span><span class="win-text"><span class="win-cat"><span class="cat-emoji">📉</span> POS</span> <strong>DTM</strong> POS error rate at 0.23% vs 0.21% goal (91% pacing; investigating .02% increase drivers)</span></div>
+    </div>
+
+    <div class="card-wrap card-pos">
+      <div class="card-title"><span class="icon">—</span> POS Error Rate</div>
+      <table class="card-table">
+        <thead>
+          <tr><th>Partner</th><th>Issue &amp; Status</th><th>Trend</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name partner-cell">3P</td>
+            <td>Error rate at <strong>0.32%</strong> vs 0.30% plan (behind pacing to 0.29% Q1 goal). Spike with Clover Error Rate due to rate limiting and delays with self-healing item/menu polling.</td>
+            <td><span class="tag-trend tag-trend-bad">0.32%</span></td>
+          </tr>
+          <tr>
+            <td class="name partner-cell">DTM</td>
+            <td>Error rate at <strong>0.23%</strong> vs 0.21% goal (91% pacing; investigating .02% increase drivers).</td>
+            <td><span class="tag-trend tag-trend-bad">0.23%</span></td>
+          </tr>
+          <tr>
+            <td class="name partner-cell">ANZ</td>
+            <td>Error rate at <strong>0.25%</strong> vs 0.26% goal (108% pacing). ANZ on track overall with holiday spikes no longer affecting metrics. Abacus is currently on track to become MQI compliant through mutual collaboration. On track to be compliant in 2-3 weeks at current rates.</td>
+            <td><span class="tag-trend">0.25%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="roadmap-wrap">
+      <div class="roadmap-header">
+        <div class="roadmap-title"><span class="icon">📋</span> POS Error Integration Roadmap</div>
+        <div class="roadmap-legend">
+          <span><span class="swatch swatch-flight"></span> In Flight</span>
+          <span><span class="swatch swatch-scoping"></span> Scoping</span>
+          <span><span class="swatch swatch-paused"></span> Paused</span>
+          <span><span class="swatch swatch-backlog"></span> Backlog</span>
+        </div>
+      </div>
+      <table class="roadmap-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Request</th>
+            <th>Status</th>
+            <th>Due</th>
+            <th>Owner</th>
+            <th class="th-p">P</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="team">Self-Healing</td>
+            <td>Store Availability, Menu Pull</td>
+            <td><span class="status-pill status-backlog">Backlog</span></td>
+            <td>Mar 9 / mid-Apr</td>
+            <td>Kaitlin</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">OCV</td>
+            <td>Toast</td>
+            <td><span class="status-pill status-flight">In Flight</span></td>
+            <td>Mar 2</td>
+            <td>Hannah</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">OCV</td>
+            <td>Chipotle</td>
+            <td><span class="status-pill status-paused">Paused</span></td>
+            <td>Mar 12</td>
+            <td>Christina</td>
+            <td class="td-p"><span class="p-cell">1</span></td>
+          </tr>
+          <tr>
+            <td class="team">OCV</td>
+            <td>Tim Hortons</td>
+            <td><span class="status-pill status-flight">In Flight</span></td>
+            <td>Mar 5</td>
+            <td>Kaitlin</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">OCV</td>
+            <td>OpenAPI</td>
+            <td><span class="status-pill status-flight">In Flight</span></td>
+            <td>Feb 23 / TBD</td>
+            <td>Raghav/Olu</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">OCV</td>
+            <td>Olo Stale Cart Validations</td>
+            <td><span class="status-pill status-flight">In Flight</span></td>
+            <td>w/b Feb 17</td>
+            <td>Raghav</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">OCA</td>
+            <td>Rebuild</td>
+            <td><span class="status-pill status-paused">Paused</span></td>
+            <td>TBD</td>
+            <td>Erica</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">Store Offboarding</td>
+            <td>Foundational</td>
+            <td><span class="status-pill status-flight">In Flight</span></td>
+            <td>Mar 16</td>
+            <td>Hannah</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">Store Offboarding</td>
+            <td>Toast</td>
+            <td><span class="status-pill status-paused">Paused</span></td>
+            <td>Late March</td>
+            <td>Hannah</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+          <tr>
+            <td class="team">Store Offboarding</td>
+            <td>Clover</td>
+            <td><span class="status-pill status-paused">Paused</span></td>
+            <td>Late March</td>
+            <td>Raghav</td>
+            <td class="td-p"><span class="p-cell low">0</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-wrap card-hqi">
+      <div class="card-title"><span class="icon">◆</span> High Quality Integrations (HQI)</div>
+      <table class="card-table">
+        <thead>
+          <tr><th>Initiative</th><th>Status</th><th>Progress</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name partner-cell">3P<span class="sub">Q1 Goal: 72.13%</span></td>
+            <td><strong>66.36%</strong> vs 72.13% goal. Aloha SSIO/Activate EOM Coupa Cafe. Clover SSIO unblocked; awaiting GA date. Urban Piper & Otter code-ready; Otter testing w/c 2/18. Detailed Error Spec at goal. Integrated Promos & Item Polling at risk (Toast blocked; Clover paused).</td>
+            <td><span class="tag-progress tag-progress-info">In Progress</span></td>
+          </tr>
+          <tr>
+            <td class="name partner-cell">ANZ<span class="sub">Q1 Goal: 1.40%</span></td>
+            <td><strong>1.40%</strong> vs 1.40% goal. Redcat SSIO w/ Store Activate completed. Abacus Item Polling in staging tests; Redcat Integrated Promos pulled forward. At current rates, on track for MQI compliant in 2–3 weeks.</td>
+            <td><span class="tag-progress">✔ Done</span></td>
+          </tr>
+          <tr class="row-muted">
+            <td class="name partner-cell">DTM<span class="sub">No HQI goal</span></td>
+            <td>Not tracking HQI as KR in H1 2026. ORS: Brinker launched, Wingstop building, Insomnia done 1/30. Co-funded promos: CMG building, DD to scope.</td>
+            <td><span class="tag-progress tag-progress-info">In Progress</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="roadmap-wrap">
+      <div class="roadmap-header">
+        <div class="roadmap-title"><span class="icon">📋</span> HQI Provider Roadmap</div>
+        <div class="roadmap-legend">
+          <span><span class="swatch swatch-flight"></span> In Flight</span>
+          <span><span class="swatch swatch-scoping"></span> Scoping</span>
+          <span><span class="swatch swatch-paused"></span> Paused</span>
+          <span><span class="swatch swatch-backlog"></span> Backlog</span>
+        </div>
+      </div>
+      <table class="roadmap-table">
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Feature</th>
+            <th>Status</th>
+            <th>Due</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="team">Toast</td>
+            <td>Integrated Promos</td>
+            <td><span class="status-pill status-paused">Blocked</span></td>
+            <td>April 30</td>
+            <td>Hannah</td>
+          </tr>
+          <tr>
+            <td class="team">Checkmate</td>
+            <td>Universal Error Spec</td>
+            <td><span class="status-pill status-flight">In-Progress</span></td>
+            <td>April 30</td>
+            <td>Mo</td>
+          </tr>
+          <tr>
+            <td class="team">Qu</td>
+            <td>Item Polling</td>
+            <td><span class="status-pill status-flight">In-Progress</span></td>
+            <td>April 30</td>
+            <td>Erica</td>
+          </tr>
+          <tr>
+            <td class="team">PAR</td>
+            <td>Integration Promos</td>
+            <td><span class="status-pill status-flight">In-Progress</span></td>
+            <td>April 30</td>
+            <td>Erica</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-wrap risks-wrap">
+      <div class="card-title"><span class="icon">⚠</span> Risks & Blockers</div>
+      <ul class="risks-list" style="padding: 10px 14px 12px;">
+        <li>
+          <span class="bullet"></span>
+          <div class="risk-content">
+            <div class="risk-title"><span class="risk-cat hqi">HQI</span> Clover item polling</div>
+            <div class="risk-detail">Paused due to rate limits after MX-induced cancel spike (risk to HQI + minor POS impact). Broader conversation to implement a long-term solution for 86'ing via webhooks so we don't have to re-pull.</div>
+          </div>
+        </li>
+        <li>
+          <span class="bullet"></span>
+          <div class="risk-content">
+            <div class="risk-title"><span class="risk-cat pos">POS</span> Self-Healing Menu/Item</div>
+            <div class="risk-detail">Relaunch delayed to late March / early April.</div>
+          </div>
+        </li>
+        <li>
+          <span class="bullet"></span>
+          <div class="risk-content">
+            <div class="risk-title"><span class="risk-cat hqi">HQI</span> Toast Integrated Promos</div>
+            <div class="risk-detail">Blocked on stacked promo enablement for testing.</div>
+          </div>
+        </li>
+        <li>
+          <span class="bullet"></span>
+          <div class="risk-content">
+            <div class="risk-title"><span class="risk-cat pos">POS</span> Chipotle OCV</div>
+            <div class="risk-detail">Rollback due to validation endpoint reserving capacity per call.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-wrap card-teal">
+      <div class="card-title"><span class="icon">🎯</span> Next Milestones & Asks</div>
+      <div class="card-subsection">
+        <div class="card-subhead">🎯 Next Milestones</div>
+        <table class="card-table">
+          <thead>
+            <tr><th>Milestone</th><th>Target</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Self-Healing Store experiment</td><td><strong>3/9</strong></td></tr>
+            <tr><td>OCV OpenAPI / release notes</td><td><strong>2/23</strong> · <strong>2/27</strong></td></tr>
+            <tr><td>OCV dev complete</td><td><strong>Feb 27</strong></td></tr>
+            <tr><td>Aloha SSIO/Activate (Coupa Cafe)</td><td>EOM</td></tr>
+            <tr><td>Menu/Item + Store experiment relaunch</td><td>Late Mar / early Apr</td></tr>
+            <tr><td>HQI / DPIP April compliance</td><td>End of April</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-subsection">
+        <div class="card-subhead">🤝 Asks</div>
+        <ul class="highlights-list" style="padding: 0; margin: 0;">
+          <li><span class="dot"></span><strong>Product/Partnerships:</strong> Clover SSIO GA date post bug resolution.</li>
+          <li><span class="dot"></span><strong>Clover:</strong> Rate limits for item polling re-rollout.</li>
+          <li><span class="dot"></span><strong>A&P:</strong> Enable stacked promo for Toast test store.</li>
+          <li><span class="dot"></span><strong>Checkmate:</strong> Universal Error Spec & DPIP timelines (~Feb 25).</li>
+          <li><span class="dot"></span><strong>Chipotle:</strong> OCV + capacity logic path to re-launch.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform: Separate DoorDash vs Uber Menu Support</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 2rem;
+      color: #1a1a2e;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1a1a2e;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #5c5c6d;
+      margin-bottom: 2rem;
+    }
+    .chart-container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .legend {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #5c5c6d;
+    }
+    .legend span { display: flex; align-items: center; gap: 0.4rem; }
+    .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .legend .dot.yes { background: #22c55e; }
+    .legend .dot.no { background: #94a3b8; }
+    .notes {
+      max-width: 640px;
+      margin: 1.5rem auto 0;
+      padding: 1rem 1.25rem;
+      background: #f1f5f9;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .notes strong { color: #334155; }
+  </style>
+</head>
+<body>
+  <h1>Separate DoorDash vs Uber Menu by Platform</h1>
+  <p class="subtitle">Does the platform support separate menus per delivery partner?</p>
+
+  <div class="chart-container">
+    <canvas id="chart"></canvas>
+    <div class="legend">
+      <span><i class="dot yes"></i> Yes</span>
+      <span><i class="dot no"></i> No</span>
+    </div>
+  </div>
+
+  <div class="notes">
+    <strong>Yes — implementation:</strong><br>
+    Toast: per-partner menu assignment · Deliverect: channel customizations · Olo: marketplace-specific filters<br>
+    <strong>No — exception:</strong> Checkmate supports 1P vs 3P split only. Stream uses central menu with pricing adjustments only.
+  </div>
+
+  <script>
+    const platforms = [
+      'Square', 'Clover', 'Shift4', 'Chowly', 'Checkmate', 'Stream',
+      'Toast', 'Deliverect', 'Olo'
+    ];
+    const hasFeature = [
+      false, false, false, false, false, false,
+      true, true, true
+    ];
+    const colors = hasFeature.map(v => v ? '#22c55e' : '#94a3b8');
+
+    new Chart(document.getElementById('chart'), {
+      type: 'bar',
+      data: {
+        labels: platforms,
+        datasets: [{
+          label: 'Separate DoorDash vs Uber menu',
+          data: hasFeature.map(v => v ? 1 : 0),
+          backgroundColor: colors,
+          borderColor: colors,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1.2,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                const i = ctx.dataIndex;
+                const v = hasFeature[i];
+                let text = platforms[i] + ': ' + (v ? 'Yes' : 'No');
+                if (i === 4) text += ' (except 1P vs 3P split)';
+                if (i === 5) text += ' (central menu, pricing adjustments only)';
+                if (i === 6) text += ' (via per-partner menu assignment)';
+                if (i === 7) text += ' (via channel customizations)';
+                if (i === 8) text += ' (via marketplace-specific filters)';
+                return text;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            max: 1,
+            ticks: {
+              stepSize: 1,
+              callback: (v) => v === 1 ? 'Yes' : v === 0 ? 'No' : ''
+            }
+            , grid: { display: false }
+          },
+          y: {
+            grid: { display: false },
+            ticks: { font: { size: 13 } }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
